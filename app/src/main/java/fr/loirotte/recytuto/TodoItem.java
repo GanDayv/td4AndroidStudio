@@ -5,8 +5,18 @@ package fr.loirotte.recytuto;
  */
 
 public class TodoItem {
+
     public enum Tags {
-        Faible, Normal, Important
+        Faible("Faible"), Normal("Normal"), Important("Important");
+
+        private String desc;
+        Tags(String desc) {
+            this.desc = desc;
+        }
+
+        public String getDesc() {
+            return desc;
+        }
     }
 
     private String label;
@@ -17,6 +27,21 @@ public class TodoItem {
         this.tag = tag;
         this.label = label;
         this.done = false;
+    }
+
+    public TodoItem(String label, Tags tag, boolean done) {
+        this.label = label;
+        this.tag = tag;
+        this.done = done;
+    }
+
+    public static Tags getTagFor(String desc) {
+        for (Tags tag : Tags.values()) {
+            if (desc.compareTo(tag.getDesc()) == 0)
+                return tag;
+        }
+
+        return Tags.Faible;
     }
 
     public String getLabel() {
